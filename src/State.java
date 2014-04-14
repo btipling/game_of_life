@@ -22,12 +22,58 @@ public class State {
         boolean setCoordinate(boolean val);
     }
 
+    interface SetCoordinateWithCoordValues {
+        boolean setCoordinate(boolean val, int row, int col);
+    }
+
+
     public void each(SetCoordinate operation) {
         for(int r = 0; r < maxRows; r++) {
             for (int c = 0; c < maxCols; c++) {
                 current.get(r).set(c, operation.setCoordinate(get(r, c)));
             }
         }
+    }
+
+    public void each(SetCoordinateWithCoordValues operation, DS dsToSet) {
+        for(int r = 0; r < maxRows; r++) {
+            for (int c = 0; c < maxCols; c++) {
+                dsToSet.get(r).set(c, operation.setCoordinate(get(r, c), r, c));
+            }
+        }
+    }
+
+    public void step() {
+        DS next = ds1;
+        if (current == ds1) {
+           next = ds2;
+        }
+        each((val, row, col) -> {
+            int liveNeighborCount = getLiveNeighbors(row, col);
+            if (val) {
+                return liveNeighborCount == 2 || liveNeighborCount == 3;
+            }
+            return liveNeighborCount == 3;
+        }, next);
+        clear();
+        current = next;
+    }
+
+    private int getLiveNeighbors(int row, int col) {
+        int liveNeighbors = 0;
+        int startRow = row == 0 ? 0 : row - 1;
+        int startCol = col == 0 ? 0 : col - 1;
+        for (int r = startRow; r < row+2 && r < maxRows; r++) {
+            for (int c = startCol; c < col+2 && c < maxCols; c++) {
+                if (r == row && c == col) {
+                    continue;
+                }
+                if (get(r, c)) {
+                    liveNeighbors++;
+                }
+            }
+        }
+        return liveNeighbors;
     }
 
     public void clear() {

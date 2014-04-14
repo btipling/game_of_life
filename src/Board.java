@@ -23,12 +23,16 @@ public class Board {
             state.clear();
             boardPanel.repaint();
         });
+        stepBtn.addActionListener(e -> {
+            state.step();
+            boardPanel.repaint();
+        });
     }
 
 
 
     public void showBoard() {
-        JFrame frame = new JFrame("HelloWorldSwing");
+        JFrame frame = new JFrame("Conway's Game of Life");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.getContentPane().add(contentPanel);
         frame.setMinimumSize(new Dimension(750, 500));
