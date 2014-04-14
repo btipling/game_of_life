@@ -45,6 +45,7 @@ public class Board {
                 boardPanel.repaint();
             });
         }
+        statusLabel.setText("Started!");
         timer.start();
     }
 
@@ -52,6 +53,7 @@ public class Board {
        if (timer != null && timer.isRunning())  {
            timer.stop();
        }
+       statusLabel.setText("Stopped!");
     }
 
 

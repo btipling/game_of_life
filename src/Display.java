@@ -34,7 +34,6 @@ public class Display extends JPanel {
             @Override
             public void mouseMoved(MouseEvent e) {
                 over = eventToPoint(e);
-                statusLabel.setText(String.format("p moved is %s", over.toString()));
                 repaint();
             }
         });
