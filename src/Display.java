@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 public class Display extends JPanel {
 
-    private final int boxSize = 10;
+    private final int boxSize = 8;
     private final JLabel statusLabel;
     private int max_rows;
     private int max_cols;
@@ -77,7 +77,7 @@ public class Display extends JPanel {
         if (columns > max_cols) {
             columns = max_cols;
         }
-        g2d.setColor(new Color(128, 128, 128));
+        g2d.setColor(new Color(148, 148, 148));
         for (int w = 0; w < columns; w++) {
             int step = w * boxSize;
             g2d.drawLine(step, 0, step, boxSize * rows);

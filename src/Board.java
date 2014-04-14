@@ -17,6 +17,7 @@ public class Board {
     private JPanel boardPanel;
     public JLabel statusLabel;
     private Display display;
+    private Timer timer;
 
     public Board() {
         clearBtn.addActionListener(e -> {
@@ -27,8 +28,31 @@ public class Board {
             state.step();
             boardPanel.repaint();
         });
+        startBtn.addActionListener(e -> {
+            start();
+        });
+        stopBtn.addActionListener(e -> {
+            stop();
+        });
     }
 
+
+    private void start() {
+        stop();
+        if (timer == null) {
+            timer = new Timer(1, e -> {
+                state.step();
+                boardPanel.repaint();
+            });
+        }
+        timer.start();
+    }
+
+    private void stop() {
+       if (timer != null && timer.isRunning())  {
+           timer.stop();
+       }
+    }
 
 
     public void showBoard() {
