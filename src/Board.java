@@ -3,6 +3,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Board {
+    private final int MAX_ROWS = 1000;
+    private final int MAX_COLS = 1000;
+    private State state;
     private JPanel contentPanel;
     private JButton startBtn;
     private JButton stopBtn;
@@ -24,8 +27,9 @@ public class Board {
     }
 
     private void createUIComponents() {
+        state = new State(MAX_ROWS, MAX_COLS);
         statusLabel = new JLabel();
         statusLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        boardPanel = new Display(statusLabel);
+        boardPanel = new Display(statusLabel, state, MAX_ROWS, MAX_COLS);
     }
 }
