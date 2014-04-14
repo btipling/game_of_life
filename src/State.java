@@ -18,6 +18,22 @@ public class State {
         current = ds1;
     }
 
+    interface SetCoordinate {
+        boolean setCoordinate(boolean val);
+    }
+
+    public void each(SetCoordinate operation) {
+        for(int r = 0; r < maxRows; r++) {
+            for (int c = 0; c < maxCols; c++) {
+                current.get(r).set(c, operation.setCoordinate(get(r, c)));
+            }
+        }
+    }
+
+    public void clear() {
+        each(val -> false);
+    }
+
     public void flip(int row, int col) {
         if (isOutOfBounds(row, col)) {
             return;

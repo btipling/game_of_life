@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Board {
     private final int MAX_ROWS = 1000;
@@ -15,6 +17,15 @@ public class Board {
     private JPanel boardPanel;
     public JLabel statusLabel;
     private Display display;
+
+    public Board() {
+        clearBtn.addActionListener(e -> {
+            state.clear();
+            boardPanel.repaint();
+        });
+    }
+
+
 
     public void showBoard() {
         JFrame frame = new JFrame("HelloWorldSwing");
